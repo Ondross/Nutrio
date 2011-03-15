@@ -1,4 +1,6 @@
 HealthConnect::Application.routes.draw do
+  resources :purchases
+
   devise_for :users
 
   resources :foods
