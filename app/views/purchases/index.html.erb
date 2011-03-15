@@ -29,3 +29,17 @@
 <br />
 
 <%= link_to 'New Purchase', new_purchase_path %>
+
+<table>
+	<tr>
+		<th>Food</th>
+		<th>Vitamin A </th>
+		<th>Vitamin B </th>
+		<th>Fiber</th>
+	</tr>
+	<tr>
+	<% for i in 0..purchase.bananas %>
+	<td><%= Food.find(:all, :conditions => { :name => bananas}).name %>
+	
+	</tr>
+	</table>

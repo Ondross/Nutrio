@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
   # GET /purchases.xml
   def index
     @purchases = Purchase.all
+	@foods = Food.all
 
     respond_to do |format|
       format.html # index.html.erb
