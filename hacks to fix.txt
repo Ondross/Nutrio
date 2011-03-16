@@ -1,4 +1,0 @@
-Hacks to Fix:
-Iterating through totals is done with a switch statement.
-It should be a for loop, but I can't match the names of the columns
-with the names of the attributes.

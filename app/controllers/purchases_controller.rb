@@ -42,6 +42,9 @@ class PurchasesController < ApplicationController
   # POST /purchases.xml
   def create
     @purchase = Purchase.new(params[:purchase])
+	
+	@purchase.user = current_user.email
+	@purchase.date = Time.now
 
     respond_to do |format|
       if @purchase.save

@@ -2,7 +2,6 @@
 
 <table>
   <tr>
-    <th>User</th>
     <th>Date</th>
     <th>Food</th>
     <th>Quantity</th>
@@ -11,10 +10,10 @@
     <th></th>
     <th></th>
   </tr>
-
+<% if user_signed_in? %>
 <% @purchases.each do |purchase| %>
+	<% if purchase.user == current_user.email %>
   <tr>
-    <td><%= purchase.user %></td>
     <td><%= purchase.date %></td>
     <td><%= purchase.food%></td>
     <td><%= purchase.quantity %></td>
@@ -23,6 +22,7 @@
     <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
     <td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
+	<% end %>
 <% end %>
 </table>
 
@@ -35,11 +35,13 @@
 @fiber= 0
 
 @purchases.each do |purchase|
-	@foods.each do |food|
-		if food.name == purchase.food
-			@vita += food.vitamina * purchase.quantity
-			@vitb += food.vitaminb * purchase.quantity
-			@fiber += food.fiber * purchase.quantity
+	if purchase.user == current_user.email
+		@foods.each do |food|
+			if food.name == purchase.food
+				@vita += food.vitamina * purchase.quantity
+				@vitb += food.vitaminb * purchase.quantity
+				@fiber += food.fiber * purchase.quantity
+			end
 		end
 	end
 end
@@ -56,3 +58,4 @@ end
 	<td> <%= @fiber %> </td>
 	</tr>
 	</table>
+	<% end %>
