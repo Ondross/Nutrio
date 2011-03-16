@@ -14,7 +14,7 @@
 <% @purchases.each do |purchase| %>
 	<% if purchase.user == current_user.email %>
   <tr>
-    <td><%= purchase.date %></td>
+    <td><%= purchase.date.strftime("%Y-%m-%d") %></td>
     <td><%= purchase.food%></td>
     <td><%= purchase.quantity %></td>
     <td><%=  %></td>
@@ -60,4 +60,7 @@ end
 	</table>
 	<% end %>
 	
-	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|fiber|vitB|vitA&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=000,333,444&chds=0,105,0,105&chd=t:#{@vita}|#{@vitb}|#{@fiber}&chtt=Horizontal+bar+chart", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
+	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|fiber|vitB|vitA&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=000,333,444&chds=0,105,0,105&chd=t:#{@vita}|#{@vitb}|#{@fiber}&chtt=Nutrient+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
+	
+	<%= render 'listform' %>
+

@@ -56,6 +56,31 @@ class PurchasesController < ApplicationController
       end
     end
   end
+  
+    def listcreate
+    @purchase = Purchase.new
+	@purchase2 = Purchase.new
+	
+	@purchase.food = params[:food1]
+	@purchase.quantity = params[:quant1]
+	@purchase.user = current_user.email
+	@purchase.date = Time.now
+	
+	@purchase2.food = params[:food2]
+	@purchase2.quantity = params[:quant2]
+	@purchase2.user = current_user.email
+	@purchase2.date = Time.now
+
+    respond_to do |format|
+      if @purchase.save and @purchase2.save
+        format.html { redirect_to(purchases_path, :notice => 'Purchase was successfully created.') }
+        format.xml  { render :xml => @purchase, :status => :created, :location => @purchase }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @purchase.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # PUT /purchases/1
   # PUT /purchases/1.xml
