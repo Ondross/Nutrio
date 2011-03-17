@@ -14,17 +14,19 @@
 <% if user_signed_in? %>
 <% if @days %>
 	<% @purchases.each do |purchase| %>
-		<% if purchase.date.strftime("%d").to_i - t.strftime("%d").to_i <= @days.to_i %>
-			<% if purchase.user == current_user.email %>
-			  <tr>
-				<td><%= purchase.date.strftime("%Y-%m-%d") %></td>
-				<td><%= purchase.food%></td>
-				<td><%= purchase.quantity %></td>
-				<td><%=  %></td>
-				<td><%= link_to 'Show', purchase %></td>
-				<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-				<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
-			  </tr>
+		<% if purchase.date %>
+			<% if purchase.date.strftime("%d").to_i - t.strftime("%d").to_i <= @days.to_i %>
+				<% if purchase.user == current_user.email %>
+				  <tr>
+					<td><%= purchase.date.strftime("%Y-%m-%d") %></td>
+					<td><%= purchase.food%></td>
+					<td><%= purchase.quantity %></td>
+					<td><%=  %></td>
+					<td><%= link_to 'Show', purchase %></td>
+					<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
+					<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
+				  </tr>
+				  <% end %>
 			<% end %>
 		<% end %>
 	<% end %>
