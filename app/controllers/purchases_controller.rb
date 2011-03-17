@@ -4,8 +4,8 @@ class PurchasesController < ApplicationController
   def index
     @purchases = Purchase.all
 	@foods = Food.all
-	@days = params[:days]
-
+	@days = params[:days].to_i
+	
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @purchases }
