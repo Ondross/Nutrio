@@ -5,7 +5,7 @@
     <th>Date</th>
     <th>Food</th>
     <th>Quantity</th>
-    <th></th>
+    <th><%= @days %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,7 +15,7 @@
 <% if @days %>
 	<% @purchases.each do |purchase| %>
 		<% if purchase.date %>
-			<% if purchase.date.strftime("%d").to_i - t.strftime("%d").to_i <= @days.to_i %>
+			<% if  t.strftime("%d").to_i - purchase.date.strftime("%d").to_i  <= @days.to_i %>
 				<% if purchase.user == current_user.email %>
 				  <tr>
 					<td><%= purchase.date.strftime("%Y-%m-%d") %></td>
@@ -58,7 +58,7 @@
 if @days
 	@purchases.each do |purchase|
 		if purchase.user == current_user.email
-			if purchase.date.strftime("%d").to_i - t.strftime("%d").to_i <= @days.to_i
+			if t.strftime("%d").to_i - purchase.date.strftime("%d").to_i  <= @days.to_i
 				@foods.each do |food|
 					if food.name == purchase.food
 						@vita += food.vitamina * purchase.quantity

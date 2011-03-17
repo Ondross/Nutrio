@@ -4,7 +4,9 @@ class PurchasesController < ApplicationController
   def index
     @purchases = Purchase.all
 	@foods = Food.all
-	@days = params[:days].to_i
+	if params[:days]
+			@days = params[:days]
+	end
 	
     respond_to do |format|
       format.html # index.html.erb
