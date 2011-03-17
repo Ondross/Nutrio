@@ -1,5 +1,10 @@
 HealthConnect::Application.routes.draw do
   match 'purchases/listcreate' => "purchases#listcreate", :as => :listcreate
+  
+  match 'purchases/history' => "purchases#history", :as => :history
+
+  match 'purchases/index' => "purchases#index", :as => :index
+
   resources :purchases
 
   devise_for :users

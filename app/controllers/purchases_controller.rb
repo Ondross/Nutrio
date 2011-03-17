@@ -4,6 +4,7 @@ class PurchasesController < ApplicationController
   def index
     @purchases = Purchase.all
 	@foods = Food.all
+	@days = params[:days]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,15 +62,19 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new
 	@purchase2 = Purchase.new
 	
-	@purchase.food = params[:food1]
-	@purchase.quantity = params[:quant1]
-	@purchase.user = current_user.email
-	@purchase.date = Time.now
+	if params[:food1] != "Food"
+		@purchase.food = params[:food1]
+		@purchase.quantity = params[:quant1]
+		@purchase.user = current_user.email
+		@purchase.date = Time.now
+	end
 	
-	@purchase2.food = params[:food2]
-	@purchase2.quantity = params[:quant2]
-	@purchase2.user = current_user.email
-	@purchase2.date = Time.now
+	if params[:food2] != "Food"
+		@purchase2.food = params[:food2]
+		@purchase2.quantity = params[:quant2]
+		@purchase2.user = current_user.email
+		@purchase2.date = Time.now
+	end
 
     respond_to do |format|
       if @purchase.save and @purchase2.save
@@ -80,6 +85,16 @@ class PurchasesController < ApplicationController
         format.xml  { render :xml => @purchase.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  def history
+  @days = params[:days]
+  
+  
+  respond_to do |format|
+        format.html { redirect_to(purchases_path) }
+        format.xml  { render :xml => @purchase, :status => :created, :location => @purchase }
+	end
   end
 
   # PUT /purchases/1
