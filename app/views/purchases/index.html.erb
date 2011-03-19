@@ -1,16 +1,25 @@
-<h1>Listing purchases</h1>
+<% if @days %>
+	<% if @days.to_i == 1 %>
+		<h1>Listing Purchases from the past day</h1>
+	<% else %>
+		<h1>Listing Purchases from the past <%= @days %> days</h1>
+	<% end %>
+<% else %>
+	<h1>Listing Purchases </h1>
+<% end %>
 
 <table>
   <tr>
     <th>Date</th>
     <th>Food</th>
     <th>Quantity</th>
-    <th><%= @days %></th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 <% t = Time.now %>
+
 <% if user_signed_in? %>
 <% if @days %>
 	<% @purchases.each do |purchase| %>
@@ -102,6 +111,6 @@ end
 	
 	<%  #make a 2d array  a[0][0]=@vita a[0][1]="Vitamin A"%>
 	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|fiber|vitB|vitA&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=000,333,444&chds=0,105,0,105&chd=t:#{@vita}|#{@vitb}|#{@fiber}&chtt=Nutrient+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
-	
-	<%= render 'listform' %>
+	<br>
+	<%= render 'listform' %> <br>
 	<%= render 'historyform' %>
