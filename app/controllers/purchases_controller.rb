@@ -5,7 +5,11 @@ class PurchasesController < ApplicationController
     @purchases = Purchase.all
 	@foods = Food.all
 	if params[:days]
+		if params[:days] != 'days'
 			@days = params[:days]
+		else
+			@days = 10000
+		end
 	end
 	
     respond_to do |format|
