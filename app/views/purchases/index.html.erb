@@ -114,12 +114,30 @@
 		</tr>
 		</table>
 		
+	<!-- Recommended DVs for different foods.  -->
+	<% @vitadv = 10 %>
+	<% @vitbdv = 10 %>
+	<% @fiberdv = 30 %>
+	
+		
 	<!-- # Sort a 2D array by value.  Track name:string and color:string:rgb -->
-	<% @amt_name_rgb = [[@vita, 'Vitamin A', 'ffffff'],[@vitb, 'Vitamin B', '000000'],[@fiber, 'Fiber', '0000ff']] %>
+	<% @amt_name_rgb = [[@vita/@vitadv, 'Vitamin A', 'ffffff'],[@vitb/@vitbdv, 'Vitamin B', '000000'],[@fiber/@fiberdv, 'Fiber', '0000ff']] %>
 	<% @amt_name_rgb.sort! { |a,b| a <=> b } %>
 	
+	<!-- Check for percent DV and color code -->
+	<% @amt_name_rgb.each do |food|
+		if food[0] < 20
+			food[2] = 'ff0000'
+		elsif food[0] < 50
+			food[2] = '992222'
+		else
+			food[2] = '00ff00'
+		end
+	end
+	%>
+	
 		 <!-- Y-labels and values are taken in reverse order in this API... -->
-	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|#{@amt_name_rgb[2][1]}|#{@amt_name_rgb[1][1]}|#{@amt_name_rgb[0][1]}&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxs=1,000000,14&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=#{@amt_name_rgb[2][2]},#{@amt_name_rgb[1][2]},#{@amt_name_rgb[0][2]}&chds=0,105,0,105&chd=t:#{@amt_name_rgb[0][0]}|#{@amt_name_rgb[1][0]}|#{@amt_name_rgb[2][0]}&chtt=Nutrient+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
+	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|#{@amt_name_rgb[2][1]}|#{@amt_name_rgb[1][1]}|#{@amt_name_rgb[0][1]}&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxs=1,000000,14&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=#{@amt_name_rgb[0][2]},#{@amt_name_rgb[1][2]},#{@amt_name_rgb[2][2]}&chds=0,105,0,105&chd=t:#{@amt_name_rgb[0][0]}|#{@amt_name_rgb[1][0]}|#{@amt_name_rgb[2][0]}&chtt=Nutrient+%DV+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
 	
 		<br>
 	<%= render 'listform' %> <br>
