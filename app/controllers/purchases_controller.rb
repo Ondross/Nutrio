@@ -1,9 +1,22 @@
 class PurchasesController < ApplicationController
   # GET /purchases
   # GET /purchases.xml
+  
+  def home
+	
+  
+  end
+  
   def index
     @purchases = Purchase.all
 	@foods = Food.all
+	
+			
+	#Recommended DVs for different foods.
+	@vitadv = 10
+	@vitbdv = 10
+	@fiberdv = 30 
+	
 	if params[:days]
 		if params[:days] != 'days'
 			@days = params[:days]
@@ -17,6 +30,12 @@ class PurchasesController < ApplicationController
       format.xml  { render :xml => @purchases }
     end
   end
+  
+  def list
+	@purchases = Purchase.all
+	@foods = Food.all
+	
+   end
 
   # GET /purchases/1
   # GET /purchases/1.xml

@@ -1,0 +1,58 @@
+	<h1>Listing Purchases </h1>
+
+
+<!-- Table of Purchases -->
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Food</th>
+    <th>Quantity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% t = Time.now %>
+
+	<% if @days %>
+		<% @purchases.each do |purchase| %>
+			<% if purchase.date %>
+				<% if  t.strftime("%d").to_i - purchase.date.strftime("%d").to_i  <= @days.to_i %>
+					<% if purchase.user == current_user.email %>
+					  <tr>
+						<td><%= purchase.date.strftime("%m-%d-%Y") %></td>
+						<td><%= purchase.food%></td>
+						<td><%= purchase.quantity %></td>
+						<td><%=  %></td>
+						<td><%= link_to 'Show', purchase %></td>
+						<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
+						<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
+					  </tr>
+					  <% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+	<% else %>
+		<% @purchases.each do |purchase| %>
+			<% if purchase.user == current_user.email %>
+			  <tr>
+				<td><%= purchase.date.strftime("%m-%d-%Y") %></td>
+				<td><%= purchase.food%></td>
+				<td><%= purchase.quantity %></td>
+				<td><%=  %></td>
+				<td><%= link_to 'Show', purchase %></td>
+				<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
+				<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
+			  </tr>
+			<% end %>
+		<% end %>
+	<% end %>
+
+	</table>
+<% render 'listform' %>
+	<br />
+	<%= link_to 'Nutrient Graph', index_path %> <br>
+	<%= link_to 'Foods', foods_path %><br>
+	<%= link_to 'New Purchase', new_purchase_path %>

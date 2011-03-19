@@ -4,6 +4,8 @@
 <% if @days %>
 	<% if @days.to_i == 1 %>
 		<h1>Listing Purchases from the past day</h1>
+	<% elsif @days.to_i == 10000 %>
+		<h1>Listing Purchases </h1>
 	<% else %>
 		<h1>Listing Purchases from the past <%= @days %> days</h1>
 	<% end %>
@@ -11,61 +13,8 @@
 	<h1>Listing Purchases </h1>
 <% end %>
 
-
-<!-- Table of Purches -->
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Food</th>
-    <th>Quantity</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  
 <% t = Time.now %>
 
-	<% if @days %>
-		<% @purchases.each do |purchase| %>
-			<% if purchase.date %>
-				<% if  t.strftime("%d").to_i - purchase.date.strftime("%d").to_i  <= @days.to_i %>
-					<% if purchase.user == current_user.email %>
-					  <tr>
-						<td><%= purchase.date.strftime("%Y-%m-%d") %></td>
-						<td><%= purchase.food%></td>
-						<td><%= purchase.quantity %></td>
-						<td><%=  %></td>
-						<td><%= link_to 'Show', purchase %></td>
-						<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-						<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
-					  </tr>
-					  <% end %>
-				<% end %>
-			<% end %>
-		<% end %>
-		
-	<% else %>
-		<% @purchases.each do |purchase| %>
-			<% if purchase.user == current_user.email %>
-			  <tr>
-				<td><%= purchase.date.strftime("%Y-%m-%d") %></td>
-				<td><%= purchase.food%></td>
-				<td><%= purchase.quantity %></td>
-				<td><%=  %></td>
-				<td><%= link_to 'Show', purchase %></td>
-				<td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-				<td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
-			  </tr>
-			<% end %>
-		<% end %>
-	<% end %>
-
-	</table>
-
-	<br />
-
-	<%= link_to 'New Purchase', new_purchase_path %>
 	 <%
 	@vita = 0
 	@vitb = 0
@@ -100,28 +49,9 @@
 		end
 	end
 	%>
-	
-	<table>
-		<tr>
-			<th>Vitamin A </th>
-			<th>Vitamin B </th>
-			<th>Fiber</th>
-		</tr>
-		<tr>
-		<td> <%= @vita %> </td>
-		<td> <%= @vitb %> </td>
-		<td> <%= @fiber %> </td>
-		</tr>
-		</table>
-		
-	<!-- Recommended DVs for different foods.  -->
-	<% @vitadv = 10 %>
-	<% @vitbdv = 10 %>
-	<% @fiberdv = 30 %>
-	
 		
 	<!-- # Sort a 2D array by value.  Track name:string and color:string:rgb -->
-	<% @amt_name_rgb = [[@vita/@vitadv, 'Vitamin A', 'ffffff'],[@vitb/@vitbdv, 'Vitamin B', '000000'],[@fiber/@fiberdv, 'Fiber', '0000ff']] %>
+	<% @amt_name_rgb = [[@vita*100/@vitadv, 'Vitamin A', 'ffffff'],[@vitb*100/@vitbdv, 'Vitamin B', '000000'],[@fiber*100/@fiberdv, 'Fiber', '0000ff']] %>
 	<% @amt_name_rgb.sort! { |a,b| a <=> b } %>
 	
 	<!-- Check for percent DV and color code -->
@@ -138,7 +68,29 @@
 	
 		 <!-- Y-labels and values are taken in reverse order in this API... -->
 	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|#{@amt_name_rgb[2][1]}|#{@amt_name_rgb[1][1]}|#{@amt_name_rgb[0][1]}&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxs=1,000000,14&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=#{@amt_name_rgb[0][2]},#{@amt_name_rgb[1][2]},#{@amt_name_rgb[2][2]}&chds=0,105,0,105&chd=t:#{@amt_name_rgb[0][0]}|#{@amt_name_rgb[1][0]}|#{@amt_name_rgb[2][0]}&chtt=Nutrient+%DV+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
+	<br>
+		<table>
+		<tr>
+			<th>Vitamin A </th>
+			<th>Vitamin B </th>
+			<th>Fiber</th>
+		</tr>
+		<tr>
+		<td> <%= "#{@vita} mg"  %> </td>
+		<td> <%= "#{@vitb} mg" %> </td>
+		<td> <%= "#{@fiber} g" %> </td>
+		</tr>
 	
+		<tr>
+		<td> <%= "#{@vita*100/@vitadv} %"  %> </td>
+		<td> <%= "#{@vitb*100/@vitbdv} %" %> </td>
+		<td> <%= "#{@fiber*100/@fiberdv} %" %> </td>
+		</tr>
+	
+	
+	</table>
+	<br>
+	<%= link_to "Purchase Details", list_path %>
 		<br>
 	<%= render 'listform' %> <br>
 	<%= render 'historyform' %>

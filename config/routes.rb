@@ -4,13 +4,17 @@ HealthConnect::Application.routes.draw do
   match 'purchases/history' => "purchases#history", :as => :history
 
   match 'purchases/index' => "purchases#index", :as => :index
+  
+  match 'purchases/home' => "purchases#home", :as => :home
+  
+  match 'purchases/list' => "purchases#list", :as => :list
 
   resources :purchases
 
   devise_for :users
 
   resources :foods
-  root :to => 'purchases#index'
+  root :to => 'purchases#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
