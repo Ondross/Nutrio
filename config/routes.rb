@@ -1,4 +1,6 @@
 HealthConnect::Application.routes.draw do
+  resources :nutrients
+
   match 'purchases/listcreate' => "purchases#listcreate", :as => :listcreate
   
   match 'purchases/history' => "purchases#history", :as => :history

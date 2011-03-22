@@ -10,6 +10,7 @@ class PurchasesController < ApplicationController
   def index
     @purchases = Purchase.all
 	@foods = Food.all
+	@nutrients = Nutrient.all
 	
 			
 	#Recommended DVs for different foods.

@@ -51,17 +51,17 @@
 	%>
 		
 	<!-- # Sort a 2D array by value.  Track name:string and color:string:rgb -->
-	<% @amt_name_rgb = [[@vita*100/@vitadv, 'Vitamin A', 'ffffff'],[@vitb*100/@vitbdv, 'Vitamin B', '000000'],[@fiber*100/@fiberdv, 'Fiber', '0000ff']] %>
+	<% @amt_name_rgb = [[@vita*100/@vitadv, 'Vitamin A', 'ffffff', 'vitamina'],[@vitb*100/@vitbdv, 'Vitamin B', '000000', 'vitaminb'],[@fiber*100/@fiberdv, 'Fiber', '0000ff','fiber']] %>
 	<% @amt_name_rgb.sort! { |a,b| a <=> b } %>
 	
 	<!-- Check for percent DV and color code -->
-	<% @amt_name_rgb.each do |food|
-		if food[0] < 20
-			food[2] = 'ff0000'
-		elsif food[0] < 50
-			food[2] = '992222'
+	<% @amt_name_rgb.each do |nutrient|
+		if nutrient[0] < 20
+			nutrient[2] = 'ff0000'
+		elsif nutrient[0] < 50
+			nutrient[2] = '992222'
 		else
-			food[2] = '00ff00'
+			nutrient[2] = '00ff00'
 		end
 	end
 	%>
@@ -89,18 +89,61 @@
 	
 	
 	</table>
+	
+	
+		<!-- Look for deficient vitamins
+		look for nutrients that have some of if
+		rank them on an exponential scale of how much they will help you for that vitamin.
+		These scores will then be linearly summed -->
+		
+	<%
+	@recommend = []
+	
+	@amt_name_rgb.each do |vitamin|
+		if vitamin[0] < 70
+			@nutrients.each do |nutrient|
+				if nutrient.nutrient.to_s == vitamin[1].to_s
+					if nutrient.quantity > 0
+						@recommend << [(-(10**(-vitamin[0] * 0.1 - nutrient.quantity * 0.1))) +(10**(-vitamin[0] * 0.1 )), nutrient.food]
+					end
+				end
+			end
+		end
+	end
+	%>
+	
+	<% @scored = [] %>
+	<% @recommend.each do |recommend|	%>
+		<%	@repeat = false
+			@scored.each do |scored|
+				if recommend[1] == scored[1]
+					scored[0] += recommend[0]
+					@repeat = true
+				end
+			end
+			if @repeat == false
+				@scored << recommend
+			end
+		end
+		%>		
+				
+	<%	@scored.sort! { |b,a| a <=> b } %>
+	<% @scored.each do |scored| %>
+	<%= scored[1] %> : <%= scored[0] %> <br>
+	<% end %>
 	<br>
-	<%= link_to "Purchase Details", list_path %>
-		<br>
+	
+	
+	<br>
+	<%= link_to "Purchase Details", list_path %> <br>
 	<%= render 'listform' %> <br>
 	<%= render 'historyform' %>
+	
+	
+	
+	
+	
 <% else %>
 
 Check out that empty graph!  You should join the site and fill it up!
 <% end %>
-
-	
-
-	
-
-

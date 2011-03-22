@@ -1,0 +1,29 @@
+<%= form_for(@nutrient) do |f| %>
+  <% if @nutrient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@nutrient.errors.count, "error") %> prohibited this nutrient from being saved:</h2>
+
+      <ul>
+      <% @nutrient.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nutrient %><br />
+    <%= f.text_field :nutrient %>
+  </div>
+  <div class="field">
+    <%= f.label :food %><br />
+    <%= f.text_field :food %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

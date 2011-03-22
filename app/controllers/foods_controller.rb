@@ -41,7 +41,26 @@ class FoodsController < ApplicationController
   # POST /foods.xml
   def create
     @food = Food.new(params[:food])
+	@food.save
+	
+	@nutrienta = Nutrient.new()
+	@nutrienta.nutrient = "Vitamin A"
+	@nutrienta.food = @food.name
+	@nutrienta.quantity = @food.vitamina
+	@nutrienta.save!
+	
+	@nutrientb = Nutrient.new()
+	@nutrientb.nutrient = "Vitamin B"
+	@nutrientb.food = @food.name
+	@nutrientb.quantity = @food.vitaminb
+	@nutrientb.save!
 
+	@nutrientf = Nutrient.new()
+	@nutrientf.nutrient = "Fiber"
+	@nutrientf.food = @food.name
+	@nutrientf.quantity = @food.fiber
+	@nutrientf.save!
+	
     respond_to do |format|
       if @food.save
         format.html { redirect_to(@food, :notice => 'Food was successfully created.') }
