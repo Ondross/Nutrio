@@ -10,6 +10,12 @@
 
 <%= yield %>
 
+<div class = 'sidebar' >
+	<%= link_to "Graph Page", purchases_path %> <br>
+	<%= link_to "Purchase Details", list_path %> <br>
+	<%= link_to "Food List", foods_path %> <br>
+</div>
+
 <div id='user_name'>
 	<% if user_signed_in? %>
 		Signed in as <%= current_user.email %>.  Not you?
@@ -17,6 +23,7 @@
 	<% else %>
 		<%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
 	<% end %>
+</div>
 
 </body>
 </html>

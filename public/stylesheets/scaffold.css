@@ -18,6 +18,11 @@ a:hover { color: #fff; background-color:#000; }
 
 div.field, div.actions {
   margin-bottom: 10px;
+  font-size: 20px;
+}
+
+div.sidebar {
+text-align:right;
 }
 
 #notice {

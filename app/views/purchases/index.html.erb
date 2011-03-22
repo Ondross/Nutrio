@@ -126,10 +126,18 @@
 			end
 		end
 		%>		
-				
+	
+	<!-- Sort by impact on health -->
 	<%	@scored.sort! { |b,a| a <=> b } %>
+	
+	<b> Recommended foods: </b><br>
 	<% @scored.each do |scored| %>
-	<%= scored[1] %> : <%= scored[0] %> <br>
+		<% @foods.each do |food| %>
+			<% if food.name == scored[1] %>
+				<%= link_to "#{scored[1]}".titleize, food %>
+			<% end %>
+		<% end %>
+		<br>
 	<% end %>
 	<br>
 	
