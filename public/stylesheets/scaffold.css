@@ -46,6 +46,7 @@ DIV.header
 DIV.graph
 {
   PADDING-RIGHT: 2px;
+  BORDER-TOP: #87ceeb 1px solid;
   PADDING-LEFT: 2px;
   FONT-WEIGHT: bolder;
   FONT-SIZE: x-large;
@@ -78,7 +79,7 @@ div.field, div.actions {
 }
 
 div.sidebar {
-text-align:right;
+text-align:left;
 }
 
 #notice {
