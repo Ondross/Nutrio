@@ -8,7 +8,7 @@ class PurchasesController < ApplicationController
   end
   
   def index
-    @purchases = Purchase.all
+    @purchases = Purchase.find_all_by_user(current_user.email)
 	@foods = Food.all
 	@nutrients = Nutrient.all
 	

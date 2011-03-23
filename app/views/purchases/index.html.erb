@@ -1,18 +1,19 @@
 <% if user_signed_in? %>
 <!-- Decide header based on history being viewed -->
-
+	<div class= header>
 <% if @days %>
 	<% if @days.to_i == 1 %>
-		<h1>Listing Purchases from the past day</h1>
+		Nutrient Levels from the past day
 	<% elsif @days.to_i == 10000 %>
-		<h1>Listing Purchases </h1>
+		Nutrient Levels
 	<% else %>
-		<h1>Listing Purchases from the past <%= @days %> days</h1>
+		Nutrient Levels from the past <%= @days %> days
 	<% end %>
 <% else %>
-	<h1>Listing Purchases </h1>
+Nutrient Levels
 <% end %>
-
+ </div>
+ 
 <% t = Time.now %>
 
 	 <%
@@ -21,7 +22,6 @@
 	@fiber= 0
 	if @days
 		@purchases.each do |purchase|
-			if purchase.user == current_user.email
 				if t.strftime("%d").to_i - purchase.date.strftime("%d").to_i  <= @days.to_i
 					@foods.each do |food|
 						if food.name == purchase.food
@@ -31,13 +31,11 @@
 							
 						end
 					end
-				end
 			end
 		end
 		
 	else
 		@purchases.each do |purchase|
-			if purchase.user == current_user.email
 				@foods.each do |food|
 					if food.name == purchase.food
 						@vita += food.vitamina * purchase.quantity
@@ -45,7 +43,6 @@
 						@fiber += food.fiber * purchase.quantity	
 					end
 				end
-			end
 		end
 	end
 	%>
@@ -67,7 +64,12 @@
 	%>
 	
 		 <!-- Y-labels and values are taken in reverse order in this API... -->
+		 <div class= graph >
 	<%= image_tag ("http://chart.apis.google.com/chart?&chxl=1:|#{@amt_name_rgb[2][1]}|#{@amt_name_rgb[1][1]}|#{@amt_name_rgb[0][1]}&chm=N|N&chxp=1,20,50,80&chxr=0,0,105&chxs=1,000000,14&chxt=x,y&chbh=a&chs=600x400&cht=bhg&chf=bg,s,65A02C|c,s,98CC66&chco=#{@amt_name_rgb[0][2]},#{@amt_name_rgb[1][2]},#{@amt_name_rgb[2][2]}&chds=0,105,0,105&chd=t:#{@amt_name_rgb[0][0]}|#{@amt_name_rgb[1][0]}|#{@amt_name_rgb[2][0]}&chtt=Nutrient+%DV+Totals", :width => "600", :height => "400", :alt => "Horizontal bar chart") %>
+	</div>
+		<%= link_to "Purchase Details", list_path %> <br>
+
+	<!--
 	<br>
 		<table>
 		<tr>
@@ -86,10 +88,10 @@
 		<td> <%= "#{@vitb*100/@vitbdv} %" %> </td>
 		<td> <%= "#{@fiber*100/@fiberdv} %" %> </td>
 		</tr>
-	
+
 	
 	</table>
-	
+		-->
 	
 		<!-- Look for deficient vitamins
 		look for nutrients that have some of if
@@ -143,7 +145,6 @@
 	
 	
 	<br>
-	<%= link_to "Purchase Details", list_path %> <br>
 	<%= render 'listform' %> <br>
 	<%= render 'historyform' %>
 	

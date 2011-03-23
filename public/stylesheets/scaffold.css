@@ -4,6 +4,62 @@ body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
+   TEXT-ALIGN: left;
+  PADDING-RIGHT: 2px;
+  PADDING-LEFT: 2px;
+  PADDING-BOTTOM: 2px;
+  MARGIN: 2px 10% 10px;
+  TEXT-TRANSFORM: none;
+  COLOR: #191970;
+  PADDING-TOP: 2px;
+  FONT-STYLE: normal;
+  FONT-FAMILY: Verdana, Arial;
+  BACKGROUND-COLOR: #ffffff;
+  TEXT-ALIGN: left;
+  FONT-VARIANT: normal;
+  TEXT-DECORATION: none
+}
+
+DIV.header
+{
+  BORDER-RIGHT: #87ceeb 1px solid;
+  PADDING-RIGHT: 2px;
+  BORDER-TOP: #87ceeb 1px solid;
+  PADDING-LEFT: 2px;
+  FONT-WEIGHT: bolder;
+  FONT-SIZE: x-large;
+  PADDING-BOTTOM: 2px;
+  MARGIN: 2px 10% 10px;
+  TEXT-TRANSFORM: none;
+  BORDER-LEFT: #87ceeb 1px solid;
+  COLOR: #191970;
+  PADDING-TOP: 2px;
+  BORDER-BOTTOM: #87ceeb 1px solid;
+  FONT-STYLE: normal;
+  FONT-FAMILY: Verdana, Arial;
+  BACKGROUND-COLOR: #b0c4de;
+  TEXT-ALIGN: left;
+  FONT-VARIANT: normal;
+  TEXT-DECORATION: none
+}
+
+DIV.graph
+{
+  PADDING-RIGHT: 2px;
+  PADDING-LEFT: 2px;
+  FONT-WEIGHT: bolder;
+  FONT-SIZE: x-large;
+  PADDING-BOTTOM: 2px;
+  MARGIN: 2px 10% 10px;
+  TEXT-TRANSFORM: none;
+  COLOR: #ffffff;
+  PADDING-TOP: 2px;
+  FONT-STYLE: normal;
+  FONT-FAMILY: Verdana, Arial;
+  BACKGROUND-COLOR: #ffffff;
+  TEXT-ALIGN: left;
+  FONT-VARIANT: normal;
+  TEXT-DECORATION: none
 }
 
 pre {
