@@ -1,5 +1,12 @@
-<h3> View Purchases back to: </h3>
+<h3> View Purchases from the: </h3>
 <%= form_tag :index do %>
-  <%= text_field_tag "days", "days" %>
+  <%= radio_button_tag :days, 'last' %>
+  <%= label	:days, "Last Purchase" %> <br>
+    <%= radio_button_tag :days, 7 %>
+  <%= label	:days, "Past Week" %> <br>
+    <%= radio_button_tag :days, 30 %>
+  <%= label	:days, "Past Month" %> <br>
+    <%= radio_button_tag :days, 10000 %>
+  <%= label	:days, "All Time" %><br>
   <%= submit_tag "Go" %>
 <% end %>

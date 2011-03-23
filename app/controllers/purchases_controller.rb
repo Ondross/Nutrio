@@ -11,7 +11,6 @@ class PurchasesController < ApplicationController
     @purchases = Purchase.find_all_by_user(current_user.email)
 	@foods = Food.all
 	@nutrients = Nutrient.all
-	
 			
 	#Recommended DVs for different foods.
 	@vitadv = 10
@@ -19,10 +18,10 @@ class PurchasesController < ApplicationController
 	@fiberdv = 30 
 	
 	if params[:days]
-		if params[:days] != 'days'
+		if params[:days] != 'last'
 			@days = params[:days]
 		else
-			@days = 10000
+			@purchases = Purchase.find(:all, :conditions => {:user => current_user.email, :date => Purchase.find(:last, :conditions => {:user => current_user.email}).date} )   #doesn't use :last because each food is a separate order, even on bulk purchases.  Still works for both purchases!
 		end
 	end
 	
