@@ -73,6 +73,7 @@ class PurchasesController < ApplicationController
   def create
     @purchase = Purchase.new(params[:purchase])
 	
+	@purchase.food = @purchase.food.downcase
 	@purchase.user = current_user.email
 	@purchase.date = Time.now
 
@@ -92,14 +93,14 @@ class PurchasesController < ApplicationController
 	@purchase2 = Purchase.new
 	
 	if params[:food1] != "Food"
-		@purchase.food = params[:food1]
+		@purchase.food = params[:food1].downcase
 		@purchase.quantity = params[:quant1]
 		@purchase.user = current_user.email
 		@purchase.date = Time.now
 	end
 	
 	if params[:food2] != "Food"
-		@purchase2.food = params[:food2]
+		@purchase2.food = params[:food2].downcase
 		@purchase2.quantity = params[:quant2]
 		@purchase2.user = current_user.email
 		@purchase2.date = Time.now

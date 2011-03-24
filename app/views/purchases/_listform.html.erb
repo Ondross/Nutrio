@@ -1,6 +1,6 @@
 <h3>Add more foods: </h3>
 Choose from: <% Food.all.each do |food| %>
-<%= food.name %>
+<%= link_to "#{food.name}", food %>,
 <% end %>
 <%= form_tag :listcreate do %>
   <%= text_field_tag "food1", "Food" %>
