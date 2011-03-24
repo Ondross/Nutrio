@@ -8,7 +8,11 @@ class PurchasesController < ApplicationController
   end
   
   def index
+  if user_signed_in?
     @purchases = Purchase.find_all_by_user(current_user.email)
+	else
+	@purchases = "none"
+	end
 	@foods = Food.all
 	@nutrients = Nutrient.all
 			

@@ -16,7 +16,7 @@ HealthConnect::Application.routes.draw do
   devise_for :users
 
   resources :foods
-  root :to => 'purchases#home'
+  root :to => 'purchases#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
