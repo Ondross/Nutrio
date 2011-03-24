@@ -1,4 +1,7 @@
 <h3>Add more foods: </h3>
+Choose from: <% Food.all.each do |food| %>
+<%= food.name %>
+<% end %>
 <%= form_tag :listcreate do %>
   <%= text_field_tag "food1", "Food" %>
     <%= text_field_tag "quant1", "Quantity" %>
